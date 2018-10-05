@@ -48,34 +48,34 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         initNavigation();
         initRefreshListener();
-//        initSpinnerAdapter();
+        initSpinnerAdapter();
         setSupportActionBar(mBinding.toolbar);
         getData();
     }
 
     private void initSpinnerAdapter() {
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-//                getResources().getStringArray(R.array.arr_cities));
-//        adapter.setDropDownViewResource(R.layout.item_spinner);
-//        mBinding.currentWeather.citySp.setAdapter(adapter);
-//        String curLocation = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE).getString(Utils.PREF_LOCATION, "");
-//        mBinding.currentWeather.citySp.setSelection(getPositionByLocation(curLocation));
-//        mBinding.currentWeather.citySp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                //change location
-//                getSharedPreferences(getPackageName(), Context.MODE_PRIVATE)
-//                        .edit()
-//                        .putString(Utils.PREF_LOCATION, getResources().getStringArray(R.array.arr_cities)[position])
-//                        .apply();
-//                refreshData();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.arr_cities));
+        adapter.setDropDownViewResource(R.layout.item_spinner);
+        mBinding.currentWeather.citySp.setAdapter(adapter);
+        String curLocation = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE).getString(Utils.PREF_LOCATION, "");
+        mBinding.currentWeather.citySp.setSelection(getPositionByLocation(curLocation));
+        mBinding.currentWeather.citySp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //change location
+                getSharedPreferences(getPackageName(), Context.MODE_PRIVATE)
+                        .edit()
+                        .putString(Utils.PREF_LOCATION, getResources().getStringArray(R.array.arr_cities)[position])
+                        .apply();
+                refreshData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -226,14 +226,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getLocation() {
-//        String locationName = (String) mBinding.currentWeather.citySp.getSelectedItem();
-//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-//        try {
-//            List<Address> res = geocoder.getFromLocationName(locationName, 1);
-//            return res.get(0).getLatitude() + "," + res.get(0).getLatitude();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        String locationName = (String) mBinding.currentWeather.citySp.getSelectedItem();
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> res = geocoder.getFromLocationName(locationName, 1);
+            return res.get(0).getLatitude() + "," + res.get(0).getLatitude();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return "39.701505,47.2357137";
     }

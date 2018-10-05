@@ -31,7 +31,7 @@
             <!--android:layout_marginRight="@dimen/padding_sm"-->
             <!--android:layout_toStartOf="@id/humidity"-->
             <!--app:description="@{@string/wind}" />-->
-<!---->
+
         <!--<include-->
             <!--android:id="@+id/humidity"-->
             <!--layout="@layout/layout_item_small"-->
@@ -39,8 +39,6 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_alignParentEnd="true"-->
             <!--android:layout_below="@id/city_sp"-->
-            <!--android:layout_marginRight="@dimen/padding_sm"-->
-            <!--android:layout_toLeftOf="@id/humidity"-->
-            <!--app:description="@{@string/humidity}" />-->
+            <!--android:layout_marginRight="@dimen/padding_sm" />-->
     </RelativeLayout>
 </layout>
