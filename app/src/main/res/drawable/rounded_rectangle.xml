@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<stroke android:width="2dp"-->
+    <!--android:color="#FFFFFF"/>-->
+    <!--<solid android:color="#DEB887"/>-->
+    <stroke
+        android:width="5dp"
+        android:color="#30ffffff" />
+    <!--corners allow us to make the rounded corners button-->
+    <corners android:radius="20dp" />
+
+    <solid android:color="#a1a1a1" />
+
+    <size
+        android:width="100dp"
+        android:height="20dp"/>
+</shape>
