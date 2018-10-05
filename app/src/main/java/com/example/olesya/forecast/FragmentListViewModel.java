@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.support.v7.widget.RecyclerView;
 
+import com.example.olesya.forecast.adapter.AdapterEvents;
 import com.example.olesya.forecast.adapter.ItemsAdapter;
+import com.example.olesya.forecast.adapter.WeekAdapter;
 import com.example.olesya.forecast.pojo.ListInfo;
 import com.example.olesya.forecast.pojo.WeatherInfo;
 
@@ -14,17 +17,21 @@ import java.util.ArrayList;
 
 public class FragmentListViewModel extends BaseObservable {
 
-    private ItemsAdapter mAdapter;
+    private RecyclerView.Adapter mAdapter;
     private BroadcastReceiver mReceiver;
     private boolean isWeatherToday = false;
 
     public FragmentListViewModel(boolean isWeatherToday) {
         this.isWeatherToday = isWeatherToday;
-        mReceiver = initReceiver(isWeatherToday);
-        mAdapter = new ItemsAdapter(new ArrayList<WeatherInfo>());
+        mReceiver = initReceiver();
+        if (isWeatherToday) {
+            mAdapter = new ItemsAdapter(new ArrayList<WeatherInfo>());
+        } else {
+            mAdapter = new WeekAdapter(new ArrayList<WeatherInfo>());
+        }
     }
 
-    public ItemsAdapter getAdapter() {
+    public RecyclerView.Adapter getAdapter() {
         return mAdapter;
     }
 
@@ -41,12 +48,12 @@ public class FragmentListViewModel extends BaseObservable {
         return isWeatherToday;
     }
 
-    private BroadcastReceiver initReceiver(final boolean isWeatherToday) {
+    private BroadcastReceiver initReceiver() {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction() != null && intent.getAction().equals(Utils.ST_CLEAR)) {
-                    mAdapter.clear();
+                    ((AdapterEvents)mAdapter).clear();
                     return;
                 }
 
@@ -58,12 +65,7 @@ public class FragmentListViewModel extends BaseObservable {
                 if (info == null)
                     return;
 
-                if (isWeatherToday) {
-                    mAdapter.addItems(info.getData());
-                } else {
-                    mAdapter.addItems(info.getData());
-                }
-
+                ((AdapterEvents)mAdapter).addItems(info.getData());
                 notifyPropertyChanged(BR.empty);
             }
         };

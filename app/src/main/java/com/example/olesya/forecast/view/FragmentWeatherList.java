@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.olesya.forecast.FragmentListViewModel;
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
+import com.example.olesya.forecast.adapter.ItemsAdapter;
 import com.example.olesya.forecast.databinding.FragmentWeatherListBinding;
 
 public class FragmentWeatherList extends Fragment {

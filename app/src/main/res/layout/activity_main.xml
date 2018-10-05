@@ -9,10 +9,11 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:background="@color/colorPrimary">
 
             <include
+                android:id="@+id/current_weather"
                 layout="@layout/current_weather"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

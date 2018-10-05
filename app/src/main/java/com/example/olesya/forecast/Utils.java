@@ -5,6 +5,9 @@ public class Utils {
     public static final String ST_WEATHER_WEEK = "ST_WEATHER_WEEK";
     public static final String ST_WEATHER_OBJ = "ST_WEATHER_OBJ";
     public static final String ST_CLEAR = "ST_CLEAR";
+    public static final String PREF_SI = "com.example.olesya.forecast.pref_si";
+    public static final String PREF_SAVE = "com.example.olesya.forecast.pref_save";
+    public static final String PREF_LOCATION = "com.example.olesya.forecast.pref_location";
 
     public class DARKSKY_ICON_CONST {
         public static final String CLEAR_DAY = "clear-day";
@@ -17,5 +20,8 @@ public class Utils {
         public static final String CLOUDY = "cloudy";
         public static final String PARTLY_CLOUDY_DAY = "partly-cloudy-day";
         public static final String PARTLY_CLOUDY_NIGHT = "partly-cloud-night";
+
+        public static final String UNIT_SI = "si";
+        public static final String UNIT_US = "us";
     }
 }

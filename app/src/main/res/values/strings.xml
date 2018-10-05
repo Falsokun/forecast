@@ -6,4 +6,16 @@
     <string name="refresh">Refresh</string>
     <string name="saveData">Save data</string>
     <string name="si_format">SI format</string>
+    <string name="real_feel">Real feel</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+
+    <string-array name="arr_cities">
+        <item>Rostov on Don</item>
+        <item>Moscow</item>
+        <item>London</item>
+        <item>New York</item>
+        <item>Tokyo</item>
+        <item>Seoul</item>
+    </string-array>
 </resources>

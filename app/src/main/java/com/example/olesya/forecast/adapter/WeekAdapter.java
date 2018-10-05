@@ -6,29 +6,29 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.example.olesya.forecast.databinding.ItemWeatherInfoBinding;
+import com.example.olesya.forecast.databinding.ItemWeekInfoBinding;
 import com.example.olesya.forecast.pojo.WeatherInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> implements AdapterEvents {
+public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.MyHolder> implements AdapterEvents {
 
     private static final int HOURS_LIMIT = 24;
     private ArrayList<WeatherInfo> mData;
 
-    public ItemsAdapter(ArrayList<WeatherInfo> mData) {
+    public WeekAdapter(ArrayList<WeatherInfo> mData) {
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyHolder(ItemWeatherInfoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public WeekAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new WeekAdapter.MyHolder(ItemWeekInfoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WeekAdapter.MyHolder holder, int position) {
         WeatherInfo info = mData.get(position);
         holder.mBinding.setInfo(info);
         holder.mBinding.setContext(holder.mBinding.getRoot().getContext());
@@ -40,22 +40,22 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> im
         return mData.size() > HOURS_LIMIT ? HOURS_LIMIT : mData.size();
     }
 
-    @Override
-    public void addItems(List<WeatherInfo> data) {
-        mData.addAll(data);
-        notifyDataSetChanged();
-    }
-
     public void clear() {
         mData.clear();
         notifyDataSetChanged();
     }
 
+    @Override
+    public void addItems(List<WeatherInfo> vals) {
+        mData.addAll(vals);
+        notifyDataSetChanged();
+    }
+
     public class MyHolder extends RecyclerView.ViewHolder {
 
-        ItemWeatherInfoBinding mBinding;
+        ItemWeekInfoBinding mBinding;
 
-        public MyHolder(ItemWeatherInfoBinding mBinding) {
+        public MyHolder(ItemWeekInfoBinding mBinding) {
             super(mBinding.getRoot());
             this.mBinding = mBinding;
         }
