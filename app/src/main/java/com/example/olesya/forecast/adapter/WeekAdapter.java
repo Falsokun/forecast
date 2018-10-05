@@ -9,15 +9,14 @@ import com.bumptech.glide.Glide;
 import com.example.olesya.forecast.databinding.ItemWeekInfoBinding;
 import com.example.olesya.forecast.pojo.WeatherInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.MyHolder> implements AdapterEvents {
 
     private static final int HOURS_LIMIT = 24;
-    private ArrayList<WeatherInfo> mData;
+    private List<WeatherInfo> mData;
 
-    public WeekAdapter(ArrayList<WeatherInfo> mData) {
+    public WeekAdapter(List<WeatherInfo> mData) {
         this.mData = mData;
     }
 
@@ -48,6 +47,13 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.MyHolder> impl
     @Override
     public void addItems(List<WeatherInfo> vals) {
         mData.addAll(vals);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void setItems(List<WeatherInfo> weatherInfo) {
+        mData.clear();
+        mData.addAll(weatherInfo);
         notifyDataSetChanged();
     }
 

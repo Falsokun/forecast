@@ -1,73 +1,52 @@
 package com.example.olesya.forecast;
 
-import android.content.BroadcastReceiver;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 import android.content.Context;
-import android.content.Intent;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.olesya.forecast.adapter.AdapterEvents;
 import com.example.olesya.forecast.adapter.ItemsAdapter;
 import com.example.olesya.forecast.adapter.WeekAdapter;
-import com.example.olesya.forecast.pojo.ListInfo;
 import com.example.olesya.forecast.pojo.WeatherInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class FragmentListViewModel extends BaseObservable {
+public class FragmentListViewModel extends ViewModel {
 
     private RecyclerView.Adapter mAdapter;
-    private BroadcastReceiver mReceiver;
     private boolean isWeatherToday = false;
+    private LiveData<List<WeatherInfo>> mData;
 
-    public FragmentListViewModel(boolean isWeatherToday) {
+    public FragmentListViewModel() {
+    }
+
+    public void init(Context context, boolean isWeatherToday) {
         this.isWeatherToday = isWeatherToday;
-        mReceiver = initReceiver();
         if (isWeatherToday) {
-            mAdapter = new ItemsAdapter(new ArrayList<WeatherInfo>());
+            List<WeatherInfo> info = getCurrentData(context, 0).getValue();
+            mAdapter = new ItemsAdapter(info == null ? new ArrayList<WeatherInfo>() : info);
         } else {
-            mAdapter = new WeekAdapter(new ArrayList<WeatherInfo>());
+            List<WeatherInfo> info = getCurrentData(context, 1).getValue();
+            mAdapter = new WeekAdapter(info == null ? new ArrayList<WeatherInfo>() : info);
         }
+    }
+
+    public LiveData<List<WeatherInfo>> getCurrentData(Context context, int type) {
+        if (mData == null) {
+            mData = App.getDBInstance(context).weatherDao().getInfo(type);
+        }
+
+        return mData;
     }
 
     public RecyclerView.Adapter getAdapter() {
         return mAdapter;
     }
 
-    @Bindable
-    public boolean isEmpty() {
-        return mAdapter.getItemCount() == 0;
-    }
-
-    public BroadcastReceiver getReceiver() {
-        return mReceiver;
-    }
-
     public boolean isWeatherToday() {
         return isWeatherToday;
     }
 
-    private BroadcastReceiver initReceiver() {
-        return new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction() != null && intent.getAction().equals(Utils.ST_CLEAR)) {
-                    ((AdapterEvents)mAdapter).clear();
-                    return;
-                }
-
-                if (intent.getExtras() == null)
-                    return;
-
-
-                ListInfo info = (ListInfo)intent.getExtras().getSerializable(Utils.ST_WEATHER_OBJ);
-                if (info == null)
-                    return;
-
-                ((AdapterEvents)mAdapter).addItems(info.getData());
-                notifyPropertyChanged(BR.empty);
-            }
-        };
-    }
 }

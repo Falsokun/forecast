@@ -15,9 +15,9 @@ import java.util.List;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> implements AdapterEvents {
 
     private static final int HOURS_LIMIT = 24;
-    private ArrayList<WeatherInfo> mData;
+    private List<WeatherInfo> mData = new ArrayList<>();
 
-    public ItemsAdapter(ArrayList<WeatherInfo> mData) {
+    public ItemsAdapter(List<WeatherInfo> mData) {
         this.mData = mData;
     }
 
@@ -43,6 +43,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> im
     @Override
     public void addItems(List<WeatherInfo> data) {
         mData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void setItems(List<WeatherInfo> weatherInfo) {
+        mData.clear();
+        mData.addAll(weatherInfo);
         notifyDataSetChanged();
     }
 

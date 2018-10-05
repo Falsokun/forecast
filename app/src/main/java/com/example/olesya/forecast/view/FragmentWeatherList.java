@@ -1,5 +1,7 @@
 package com.example.olesya.forecast.view;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -15,8 +17,11 @@ import android.view.ViewGroup;
 import com.example.olesya.forecast.FragmentListViewModel;
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
-import com.example.olesya.forecast.adapter.ItemsAdapter;
+import com.example.olesya.forecast.adapter.AdapterEvents;
 import com.example.olesya.forecast.databinding.FragmentWeatherListBinding;
+import com.example.olesya.forecast.pojo.WeatherInfo;
+
+import java.util.List;
 
 public class FragmentWeatherList extends Fragment {
 
@@ -31,7 +36,17 @@ public class FragmentWeatherList extends Fragment {
             isWeatherToday = getArguments().getBoolean(Utils.ST_WEATHER_DAY, false);
         }
 
-        mModel = new FragmentListViewModel(isWeatherToday);
+        mModel = ViewModelProviders.of(this).get(FragmentListViewModel.class);
+        mModel.init(getContext(), isWeatherToday);
+        int type = isWeatherToday ? 0 : 1;
+        mModel.getCurrentData(getContext(), type).observe(this, new Observer<List<WeatherInfo>>() {
+            @Override
+            public void onChanged(@Nullable List<WeatherInfo> weatherInfos) {
+                if (weatherInfos.size() != 0) {
+                    ((AdapterEvents) mModel.getAdapter()).setItems(weatherInfos);
+                }
+            }
+        });
     }
 
     @Nullable
@@ -46,26 +61,6 @@ public class FragmentWeatherList extends Fragment {
 
         initAdapter(mBinding.weatherlistRv);
         return mBinding.getRoot();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Utils.ST_CLEAR);
-        if (mModel.isWeatherToday()) {
-            filter.addAction(Utils.ST_WEATHER_DAY);
-        } else {
-            filter.addAction(Utils.ST_WEATHER_WEEK);
-        }
-
-        getActivity().registerReceiver(mModel.getReceiver(), filter);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        getActivity().unregisterReceiver(mModel.getReceiver());
     }
 
     private void initAdapter(RecyclerView recyclerView) {

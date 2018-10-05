@@ -22,11 +22,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.example.olesya.forecast.App;
+import com.example.olesya.forecast.AppDatabase;
 import com.example.olesya.forecast.DarkSkyService;
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
 import com.example.olesya.forecast.adapter.ViewPagerAdapter;
 import com.example.olesya.forecast.databinding.ActivityMainBinding;
+import com.example.olesya.forecast.pojo.WeatherInfo;
 import com.example.olesya.forecast.pojo.WeatherResponse;
 
 import java.io.IOException;
@@ -185,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         DarkSkyService darkSkyService = App.getRetrofitInstance().create(DarkSkyService.class);
         darkSkyService.weatherOnLocationInfo(getLocation(), getUnits()).enqueue(new Callback<WeatherResponse>() {
             @Override
-            public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
+            public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull final Response<WeatherResponse> response) {
                 if (response.body() == null)
                     return;
 
@@ -194,19 +196,43 @@ public class MainActivity extends AppCompatActivity {
                 Intent hourly = new Intent();
                 hourly.setAction(Utils.ST_WEATHER_DAY);
                 hourly.putExtra(Utils.ST_WEATHER_OBJ, response.body().getHourly());
-                sendBroadcast(hourly);
+//                sendBroadcast(hourly);
 
                 Intent daily = new Intent();
                 daily.setAction(Utils.ST_WEATHER_WEEK);
                 daily.putExtra(Utils.ST_WEATHER_OBJ, response.body().getDaily());
-                sendBroadcast(daily);
+//                sendBroadcast(daily);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        saveToRoom(response.body().getHourly().getData(), 0);
+                        saveToRoom(response.body().getDaily().getData(), 1);
+                        saveToRoom(response.body().getCurrently(), 2);
+                    }
+                }).start();
             }
 
             @Override
             public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
                 Log.d("MSG", "MSG");
+                mBinding.refresh.setRefreshing(false);
+                mBinding.container.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void saveToRoom(List<WeatherInfo> data, int type) {
+        for (WeatherInfo info : data) {
+            info.setType(type);
+        }
+
+        App.getDBInstance(this).weatherDao().clear(type);
+        App.getDBInstance(this).weatherDao().insertInfo(data);
+    }
+
+    private void saveToRoom(WeatherInfo item, int i) {
+        item.setType(i);
+        App.getDBInstance(this).weatherDao().insertInfo(item);
     }
 
     public String getUnits() {

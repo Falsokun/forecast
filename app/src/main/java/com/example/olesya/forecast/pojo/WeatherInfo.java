@@ -1,9 +1,12 @@
 package com.example.olesya.forecast.pojo;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.content.Context;
 
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -12,8 +15,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+@Entity
 public class WeatherInfo implements Serializable {
+    @Expose
+    private int type;
 
+    @PrimaryKey
     @SerializedName("time")
     private long timeInMillis;
 
@@ -36,6 +43,21 @@ public class WeatherInfo implements Serializable {
     private double windSpeed;
 
     private String summary;
+
+    public WeatherInfo(int type, long timeInMillis, String icon, float temperature,
+                       float temperatureHigh, float temperatureLow, float realFeel,
+                       double humidity, double windSpeed, String summary) {
+        this.type = type;
+        this.timeInMillis = timeInMillis;
+        this.icon = icon;
+        this.temperature = temperature;
+        this.temperatureHigh = temperatureHigh;
+        this.temperatureLow = temperatureLow;
+        this.realFeel = realFeel;
+        this.humidity = humidity;
+        this.windSpeed = windSpeed;
+        this.summary = summary;
+    }
 
     //region getters and setters
 
@@ -73,6 +95,14 @@ public class WeatherInfo implements Serializable {
 
     public String getSummary() {
         return summary;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
     //endregion
 
