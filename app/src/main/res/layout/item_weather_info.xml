@@ -42,8 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/time"
-                android:hint="dow"
-                android:paddingLeft="@dimen/std"
+                android:hint="date"
+                android:paddingLeft="24dp"
+                android:textSize="@dimen/small_text_size"
                 android:text="@{info.date}" />
 
             <TextView
@@ -56,8 +57,7 @@
                 android:paddingLeft="@dimen/std"
                 android:paddingRight="@dimen/std"
                 android:paddingTop="@dimen/padding_sm"
-                android:text="@{info.summary}"
-                android:textSize="@dimen/small_text_size" />
+                android:text="@{info.summary}"/>
 
             <ImageView
                 android:id="@+id/icon"

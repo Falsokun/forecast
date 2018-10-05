@@ -4,6 +4,7 @@ public class Utils {
     public static final String ST_WEATHER_DAY = "ST_WEATHER_DAY";
     public static final String ST_WEATHER_WEEK = "ST_WEATHER_WEEK";
     public static final String ST_WEATHER_OBJ = "ST_WEATHER_OBJ";
+    public static final String ST_CLEAR = "ST_CLEAR";
 
     public class DARKSKY_ICON_CONST {
         public static final String CLEAR_DAY = "clear-day";

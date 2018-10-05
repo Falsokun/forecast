@@ -1,5 +1,6 @@
 package com.example.olesya.forecast.adapter;
 
+import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,6 +42,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> {
 
     public void addItems(ArrayList<WeatherInfo> data) {
         mData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        mData.clear();
         notifyDataSetChanged();
     }
 
