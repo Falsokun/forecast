@@ -2,7 +2,6 @@ package com.example.olesya.forecast.view;
 
 import android.arch.lifecycle.Observer;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
@@ -15,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,11 +23,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.olesya.forecast.App;
-import com.example.olesya.forecast.AppDatabase;
 import com.example.olesya.forecast.DarkSkyService;
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
-import com.example.olesya.forecast.adapter.AdapterEvents;
 import com.example.olesya.forecast.adapter.ViewPagerAdapter;
 import com.example.olesya.forecast.databinding.ActivityMainBinding;
 import com.example.olesya.forecast.pojo.WeatherInfo;
@@ -137,9 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshData() {
         mBinding.container.setVisibility(View.GONE);
-        Intent hourly = new Intent();
-        hourly.setAction(Utils.ST_CLEAR);
-        sendBroadcast(hourly);
         getData();
     }
 

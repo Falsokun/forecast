@@ -39,21 +39,9 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.MyHolder> impl
         return mData.size() > HOURS_LIMIT ? HOURS_LIMIT : mData.size();
     }
 
-    public void clear() {
-        mData.clear();
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public void addItems(List<WeatherInfo> vals) {
-        mData.addAll(vals);
-        notifyDataSetChanged();
-    }
-
     @Override
     public void setItems(List<WeatherInfo> weatherInfo) {
-        mData.clear();
-        mData.addAll(weatherInfo);
+        mData = weatherInfo;
         notifyDataSetChanged();
     }
 

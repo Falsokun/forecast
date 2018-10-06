@@ -41,21 +41,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> im
     }
 
     @Override
-    public void addItems(List<WeatherInfo> data) {
-        mData.addAll(data);
-        notifyDataSetChanged();
-    }
-
-    @Override
     public void setItems(List<WeatherInfo> weatherInfo) {
-        mData.clear();
-        mData.addAll(weatherInfo);
-        notifyDataSetChanged();
+        if (mData.size() == 0 || needUpdate(weatherInfo)) {
+            mData.clear();
+            mData.addAll(weatherInfo);
+            notifyDataSetChanged();
+        }
     }
 
-    public void clear() {
-        mData.clear();
-        notifyDataSetChanged();
+    private boolean needUpdate(List<WeatherInfo> weatherInfo) {
+        List<WeatherInfo> common = new ArrayList<>(weatherInfo);
+        common.retainAll(mData);
+        return common.size() != 0;
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

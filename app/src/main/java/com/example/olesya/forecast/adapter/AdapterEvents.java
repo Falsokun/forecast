@@ -6,9 +6,5 @@ import java.util.List;
 
 public interface AdapterEvents {
 
-    void clear();
-
-    void addItems(List<WeatherInfo> vals);
-
     void setItems(List<WeatherInfo> weatherInfo);
 }

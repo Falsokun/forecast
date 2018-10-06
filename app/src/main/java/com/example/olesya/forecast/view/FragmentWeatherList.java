@@ -23,6 +23,8 @@ import com.example.olesya.forecast.pojo.WeatherInfo;
 
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+
 public class FragmentWeatherList extends Fragment {
 
     private FragmentListViewModel mModel;
@@ -42,7 +44,7 @@ public class FragmentWeatherList extends Fragment {
         mModel.getCurrentData(getContext(), type).observe(this, new Observer<List<WeatherInfo>>() {
             @Override
             public void onChanged(@Nullable List<WeatherInfo> weatherInfos) {
-                if (weatherInfos.size() != 0) {
+                if (weatherInfos.size() != 0 ) {
                     ((AdapterEvents) mModel.getAdapter()).setItems(weatherInfos);
                 }
             }
@@ -65,6 +67,7 @@ public class FragmentWeatherList extends Fragment {
 
     private void initAdapter(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setItemAnimator(new SlideInLeftAnimator());
         recyclerView.setAdapter(mModel.getAdapter());
     }
 }
