@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="info"
+            type="com.example.olesya.forecast.pojo.WeatherInfo" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Spinner
+            android:id="@+id/city_sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/std" />
+
+        <TextView
+            android:id="@+id/icon_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/city_sp"
+            android:drawableEnd="@drawable/ic_sun"
+            android:drawablePadding="10dp"
+            android:hint="+18*"
+            android:padding="@dimen/std"
+            android:text="@{info.stringTemperature}" />
+
+        <RelativeLayout
+            android:paddingRight="@dimen/padding_sm"
+            android:id="@+id/humidity_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/city_sp">
+
+            <ImageView
+                android:id="@+id/ic_humidity"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_mist"
+                android:scaleX="0.4"
+                android:scaleY="0.5"
+                android:backgroundTint="@android:color/black" />
+
+            <TextView
+                android:id="@+id/humidity_val"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_toRightOf="@id/ic_humidity"
+                android:gravity="center_vertical"
+                android:hint="18*"
+                android:text="@{info.stringHumidity}"
+                android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ic_humidity"
+                android:layout_centerHorizontal="true"
+                android:hint="wind"
+                android:text="@string/humidity"
+                android:textSize="@dimen/small_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wind_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/humidity_container"
+            android:layout_below="@id/city_sp">
+
+            <ImageView
+                android:id="@+id/ic_wind"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_wind"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:backgroundTint="@android:color/black" />
+
+            <TextView
+                android:id="@+id/wind_val"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@id/ic_wind"
+                android:hint="18*"
+                android:text="@{info.stringWindSpeed}"
+                android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ic_wind"
+                android:layout_centerHorizontal="true"
+                android:hint="wind"
+                android:text="@string/wind"
+                android:textSize="@dimen/small_text_size" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

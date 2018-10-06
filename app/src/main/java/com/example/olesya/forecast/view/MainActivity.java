@@ -1,5 +1,6 @@
 package com.example.olesya.forecast.view;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -20,12 +22,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.olesya.forecast.App;
 import com.example.olesya.forecast.AppDatabase;
 import com.example.olesya.forecast.DarkSkyService;
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
+import com.example.olesya.forecast.adapter.AdapterEvents;
 import com.example.olesya.forecast.adapter.ViewPagerAdapter;
 import com.example.olesya.forecast.databinding.ActivityMainBinding;
 import com.example.olesya.forecast.pojo.WeatherInfo;
@@ -53,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
         initSpinnerAdapter();
         setSupportActionBar(mBinding.toolbar);
         getData();
+        initObserver();
+    }
+
+    private void initObserver() {
+        App.getDBInstance(this).weatherDao().getInfo(2).observe(this, new Observer<List<WeatherInfo>>() {
+            @Override
+            public void onChanged(@Nullable List<WeatherInfo> weatherInfos) {
+                if (weatherInfos.size() != 0) {
+                    mBinding.currentWeather.setInfo(weatherInfos.get(0));
+                }
+            }
+        });
     }
 
     private void initSpinnerAdapter() {
@@ -193,15 +209,6 @@ public class MainActivity extends AppCompatActivity {
 
                 mBinding.refresh.setRefreshing(false);
                 mBinding.container.setVisibility(View.VISIBLE);
-                Intent hourly = new Intent();
-                hourly.setAction(Utils.ST_WEATHER_DAY);
-                hourly.putExtra(Utils.ST_WEATHER_OBJ, response.body().getHourly());
-//                sendBroadcast(hourly);
-
-                Intent daily = new Intent();
-                daily.setAction(Utils.ST_WEATHER_WEEK);
-                daily.putExtra(Utils.ST_WEATHER_OBJ, response.body().getDaily());
-//                sendBroadcast(daily);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -214,9 +221,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
-                Log.d("MSG", "MSG");
                 mBinding.refresh.setRefreshing(false);
                 mBinding.container.setVisibility(View.VISIBLE);
+                Toast.makeText(MainActivity.this, getString(R.string.err_no_internet), Toast.LENGTH_SHORT).show();
             }
         });
     }

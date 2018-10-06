@@ -142,6 +142,18 @@ public class WeatherInfo implements Serializable {
         }
     }
 
+    public String getStringWindSpeed() {
+        return String.valueOf(windSpeed);
+    }
+
+    public String getStringHumidity() {
+        return String.valueOf(humidity);
+    }
+
+    public String getStringMaxMinTemperature() {
+        return String.valueOf((int) temperatureHigh) + (char) 0x00B0 + "\n" + String.valueOf((int) temperatureLow) + (char) 0x00B0;
+    }
+
     public int getDrawable() {
         switch (icon) {
             case Utils.DARKSKY_ICON_CONST.CLEAR_NIGHT:

@@ -9,6 +9,7 @@
     <string name="real_feel">Real feel</string>
     <string name="wind">Wind</string>
     <string name="humidity">Humidity</string>
+    <string name="err_no_internet">No refreshing available: missing internet connection</string>
 
     <string-array name="arr_cities">
         <item>Rostov on Don</item>

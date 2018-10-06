@@ -1,7 +1,6 @@
 package com.example.olesya.forecast;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
