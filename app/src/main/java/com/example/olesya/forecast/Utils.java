@@ -1,5 +1,9 @@
 package com.example.olesya.forecast;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 public class Utils {
     public static final String ST_WEATHER_DAY = "ST_WEATHER_DAY";
     public static final String ST_WEATHER_WEEK = "ST_WEATHER_WEEK";
@@ -23,5 +27,12 @@ public class Utils {
 
         public static final String UNIT_SI = "si";
         public static final String UNIT_US = "us";
+    }
+
+    public static boolean isInternetAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

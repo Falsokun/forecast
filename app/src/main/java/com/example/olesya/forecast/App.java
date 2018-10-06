@@ -28,7 +28,9 @@ public class App {
     public static AppDatabase getDBInstance(Context context) {
         if (db == null) {
             db = Room.databaseBuilder(context,
-                    AppDatabase.class, "weather-info").build();
+                    AppDatabase.class, "weather-info")
+                    .allowMainThreadQueries()
+                    .build();
         }
 
         return db;

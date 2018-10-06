@@ -21,6 +21,6 @@ public interface WeatherInfoDao {
     @Query("SELECT * FROM weatherinfo WHERE type = :type")
     LiveData<List<WeatherInfo>> getInfo(int type);
 
-    @Query("DELETE FROM weatherinfo where type = :type")
-    void clear(int type);
+    @Query("DELETE FROM weatherinfo")
+    void clear();
 }

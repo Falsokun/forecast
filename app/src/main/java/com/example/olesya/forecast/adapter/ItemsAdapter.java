@@ -42,10 +42,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> im
 
     @Override
     public void setItems(List<WeatherInfo> weatherInfo) {
-        if (mData.size() == 0 || needUpdate(weatherInfo)) {
-            mData.clear();
-            mData.addAll(weatherInfo);
-            notifyDataSetChanged();
+        int pos = mData.size();
+        mData.clear();
+        mData = new ArrayList<>(weatherInfo);
+        if (mData.size() == 0) {
+            notifyItemRangeRemoved(0, pos);
+        } else {
+            notifyItemRangeChanged(0, weatherInfo.size());
         }
     }
 

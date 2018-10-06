@@ -2,7 +2,6 @@ package com.example.olesya.forecast.view;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,9 +43,9 @@ public class FragmentWeatherList extends Fragment {
         mModel.getCurrentData(getContext(), type).observe(this, new Observer<List<WeatherInfo>>() {
             @Override
             public void onChanged(@Nullable List<WeatherInfo> weatherInfos) {
-                if (weatherInfos.size() != 0 ) {
+//                if (weatherInfos.size() != 0 ) {
                     ((AdapterEvents) mModel.getAdapter()).setItems(weatherInfos);
-                }
+//                }
             }
         });
     }

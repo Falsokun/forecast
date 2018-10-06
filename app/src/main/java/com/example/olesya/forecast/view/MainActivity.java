@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.olesya.forecast.App;
+import com.example.olesya.forecast.AppDatabase;
 import com.example.olesya.forecast.DarkSkyService;
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
@@ -32,6 +33,7 @@ import com.example.olesya.forecast.pojo.WeatherInfo;
 import com.example.olesya.forecast.pojo.WeatherResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         .putString(Utils.PREF_LOCATION, getResources().getStringArray(R.array.arr_cities)[position])
                         .apply();
                 refreshData();
+                mBinding.refresh.setRefreshing(true);
             }
 
             @Override
@@ -96,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_toolbar, menu);
-        menu.getItem(2)
+        menu.getItem(1)
                 .setChecked(getSharedPreferences(getPackageName(), Context.MODE_PRIVATE)
                         .getBoolean(Utils.PREF_SI, false));
         return true;
@@ -115,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 refreshData(); //вообще не очень нравится. да и вообще не нравится идея запроса
                 // с выдачей данных в си, но наверное это не часто будет выполняться
                 break;
-            case R.id.menu_save:
-                preferences.edit().putBoolean(Utils.PREF_SAVE, item.isChecked()).apply();
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshData() {
-        mBinding.container.setVisibility(View.GONE);
+//        mBinding.container.setVisibility(View.GONE);
         getData();
     }
 
@@ -194,6 +195,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void getData() {
         DarkSkyService darkSkyService = App.getRetrofitInstance().create(DarkSkyService.class);
+        if (Utils.isInternetAvailable(MainActivity.this)) {
+            App.getDBInstance(MainActivity.this).weatherDao().clear();
+        }
+
         darkSkyService.weatherOnLocationInfo(getLocation(), getUnits()).enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull final Response<WeatherResponse> response) {
@@ -201,38 +206,39 @@ public class MainActivity extends AppCompatActivity {
                     return;
 
                 mBinding.refresh.setRefreshing(false);
-                mBinding.container.setVisibility(View.VISIBLE);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        saveToRoom(response.body().getHourly().getData(), 0);
-                        saveToRoom(response.body().getDaily().getData(), 1);
-                        saveToRoom(response.body().getCurrently(), 2);
-                    }
-                }).start();
+                ArrayList<WeatherInfo> typed = initTypes(response.body());
+                saveToRoom(typed);
             }
 
             @Override
             public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
                 mBinding.refresh.setRefreshing(false);
-                mBinding.container.setVisibility(View.VISIBLE);
+//                mBinding.container.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, getString(R.string.err_no_internet), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void saveToRoom(List<WeatherInfo> data, int type) {
-        for (WeatherInfo info : data) {
-            info.setType(type);
+    private ArrayList<WeatherInfo> initTypes(WeatherResponse body) {
+        ArrayList<WeatherInfo> info = new ArrayList<>();
+        for (WeatherInfo wi : body.getHourly().getData()) {
+            wi.setType(0);
+            info.add(wi);
         }
 
-        App.getDBInstance(this).weatherDao().clear(type);
-        App.getDBInstance(this).weatherDao().insertInfo(data);
+        for (WeatherInfo wi : body.getDaily().getData()) {
+            wi.setType(1);
+            info.add(wi);
+        }
+
+        body.getCurrently().setType(2);
+        info.add(body.getCurrently());
+        return info;
     }
 
-    private void saveToRoom(WeatherInfo item, int i) {
-        item.setType(i);
-        App.getDBInstance(this).weatherDao().insertInfo(item);
+    private void saveToRoom(List<WeatherInfo> data) {
+        App.getDBInstance(this).weatherDao().clear();
+        App.getDBInstance(this).weatherDao().insertInfo(data);
     }
 
     public String getUnits() {

@@ -7,11 +7,6 @@
         android:title="@string/refresh" />
 
     <item
-        android:id="@+id/menu_save"
-        android:checkable="true"
-        android:title="@string/saveData" />
-
-    <item
         android:id="@+id/menu_format"
         android:checkable="true"
         android:title="@string/si_format" />
