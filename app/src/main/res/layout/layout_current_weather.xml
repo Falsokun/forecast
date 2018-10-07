@@ -43,7 +43,8 @@
                 android:id="@+id/ic_humidity"
                 style="@style/SmallIconStyle"
                 android:background="@drawable/ic_mist"
-                android:backgroundTint="@android:color/white" />
+                android:backgroundTint="@android:color/white"
+                android:scaleX="0.35" />
 
             <TextView
                 android:id="@+id/humidity_val"
@@ -61,7 +62,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ic_humidity"
-                android:layout_centerHorizontal="true"
                 android:text="@string/humidity"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
@@ -96,7 +96,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ic_wind"
-                android:layout_centerHorizontal="true"
                 android:text="@string/wind"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
@@ -113,7 +112,8 @@
                 android:id="@+id/ic_real_feel"
                 style="@style/SmallIconStyle"
                 android:background="@drawable/ic_real_feel"
-                android:backgroundTint="@android:color/white" />
+                android:backgroundTint="@android:color/white"
+                android:scaleX="0.4" />
 
             <TextView
                 android:id="@+id/real_feel_val"
@@ -131,7 +131,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ic_real_feel"
-                android:layout_centerHorizontal="true"
                 android:text="@string/real_feel"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
