@@ -8,6 +8,7 @@ public class Utils {
     public static final String ST_WEATHER_DAY = "ST_WEATHER_DAY";
     public static final String PREF_SI = "com.example.olesya.forecast.pref_si";
     public static final String PREF_LOCATION = "com.example.olesya.forecast.pref_location";
+    public static final String PREF_LAST_COLOR = "com.example.olesya.forecast.pref_last_color";
 
     public class WEATHER_TYPES {
         public static final int DAY = 0;

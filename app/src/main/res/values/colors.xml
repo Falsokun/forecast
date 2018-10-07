@@ -3,5 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorT">#CC3F51B5</color>
+    <color name="colorT">#d6353434</color>
+
+    <color name="colorDay">#5866b6</color>
+    <color name="colorNight">#101a61</color>
+    <color name="colorMorning">#2b3741</color>
+    <color name="colorAfternoon">#845b65</color>
 </resources>

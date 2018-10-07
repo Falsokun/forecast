@@ -4,6 +4,9 @@ import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +27,7 @@ import com.example.olesya.forecast.adapter.ViewPagerAdapter;
 import com.example.olesya.forecast.databinding.ActivityMainBinding;
 import com.example.olesya.forecast.pojo.WeatherInfo;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding.refresh.setOnRefreshListener(mModel.getOnRefreshListener(this, mBinding.refresh));
         initSpinnerAdapter();
         initObserver();
+        initBackgroundColorOnTime();
     }
 
     @Override
@@ -154,5 +159,45 @@ public class MainActivity extends AppCompatActivity {
                 .setSelectedIndex(mModel.getPositionByLocation(this, curLocation));
         mBinding.currentWeather.citySp
                 .setOnItemSelectedListener(mModel.getOnSpinnerSelectedListener(this, mBinding.refresh));
+    }
+
+    /**
+     * Хотелось сделать что-то интересное с toolbar'ом, чтобы менялся от времени суток
+     * С transition в первый раз столкнулась
+     *
+     * Initializes transition depending on current hour.
+     * Animation starts from the color the app last showed to current hour's color
+     */
+    private void initBackgroundColorOnTime() {
+        SharedPreferences pref = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+        int startColor = pref.getInt(Utils.PREF_LAST_COLOR, R.color.colorDay);
+        int endColor = getColorOnTime();
+        pref.edit().putInt(Utils.PREF_LAST_COLOR, endColor).apply();
+        TransitionDrawable transition =
+                new TransitionDrawable( new Drawable[] { new ColorDrawable(startColor),
+                        new ColorDrawable(endColor)} );
+        mBinding.overlay.setBackground(transition);
+        transition.startTransition(2000);
+    }
+
+    /**
+     * Returns color with respect to the current hour
+     *
+     * @return color integer associated with a particular resource ID
+     */
+    public int getColorOnTime() {
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int id = R.color.colorNight;
+        if (hour > 3) {
+            if (hour < 10) {
+                id = R.color.colorMorning;
+            } else if (hour < 16) {
+                id = R.color.colorDay;
+            } else if (hour < 20) {
+                id = R.color.colorAfternoon;
+            }
+        }
+
+        return getResources().getColor(id);
     }
 }
