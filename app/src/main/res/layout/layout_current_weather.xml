@@ -16,28 +16,27 @@
             android:id="@+id/city_sp"
             style="@style/MaterialSpinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_sm" />
+            android:layout_height="wrap_content" />
 
         <TextView
+            android:layout_marginStart="24dp"
             android:id="@+id/icon_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/city_sp"
             android:drawableEnd="@drawable/ic_sun"
-            android:drawablePadding="10dp"
+            android:drawablePadding="@dimen/half_std"
             android:drawableTint="@android:color/white"
-            android:padding="@dimen/std"
             android:text="@{info.stringTemperature}"
             android:textColor="@android:color/white" />
 
         <RelativeLayout
+            android:layout_marginEnd="@dimen/std"
             android:id="@+id/humidity_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/city_sp"
-            android:paddingEnd="@dimen/padding_sm">
+            android:layout_below="@id/city_sp">
 
             <ImageView
                 android:id="@+id/ic_humidity"

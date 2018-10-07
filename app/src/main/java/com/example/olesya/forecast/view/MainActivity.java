@@ -30,8 +30,10 @@ import com.example.olesya.forecast.pojo.WeatherInfo;
 import com.example.olesya.forecast.pojo.WeatherResponse;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         mBinding.currentWeather.citySp.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                //change location
                 getSharedPreferences(getPackageName(), Context.MODE_PRIVATE)
                         .edit()
                         .putString(Utils.PREF_LOCATION, getResources().getStringArray(R.array.arr_cities)[position])
@@ -124,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshData() {
-//        mBinding.container.setVisibility(View.GONE);
         getData();
     }
 
@@ -204,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
                 mBinding.refresh.setRefreshing(false);
-//                mBinding.container.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, getString(R.string.err_no_internet), Toast.LENGTH_SHORT).show();
             }
         });
@@ -249,14 +248,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getLocation() {
-//        String locationName = (String) mBinding.currentWeather.citySp.getSelectedIndex();
-//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-//        try {
-//            List<Address> res = geocoder.getFromLocationName(locationName, 1);
-//            return res.get(0).getLatitude() + "," + res.get(0).getLatitude();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        int selectedIndex = mBinding.currentWeather.citySp.getSelectedIndex();
+        String locationName = getResources().getStringArray(R.array.arr_cities)[selectedIndex];
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> res = geocoder.getFromLocationName(locationName, 1);
+            return res.get(0).getLatitude() + "," + res.get(0).getLatitude();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return "39.701505,47.2357137";
     }

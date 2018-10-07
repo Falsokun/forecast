@@ -11,7 +11,6 @@
     <style name="MaterialSpinner">
         <item name="ms_arrow_tint">@android:color/white</item>
         <item name="ms_background_selector">@color/colorT</item>
-        <item name="ms_dropdown_height">300dp</item>
         <item name="ms_text_color">@android:color/white</item>
         <item name="ms_background_color">@android:color/transparent</item>
     </style>
