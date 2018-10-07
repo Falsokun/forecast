@@ -26,7 +26,14 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 public class FragmentWeatherList extends Fragment {
 
+    /**
+     * Fragment model
+     */
     private FragmentListViewModel mModel;
+
+    /**
+     * Data binding object
+     */
     private FragmentWeatherListBinding mBinding;
 
     @Override
@@ -52,17 +59,17 @@ public class FragmentWeatherList extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather_list, container, false);
-        if (mModel.isWeatherToday()) {
-            mBinding.title.setText(getString(R.string.today));
-        } else {
-            mBinding.title.setText(R.string.week);
-        }
-
-        initAdapter(mBinding.weatherlistRv);
+        mBinding.title.setText(mModel.getTitle(getContext()));
+        initRecyclerView(mBinding.weatherlistRv);
         return mBinding.getRoot();
     }
 
-    private void initAdapter(RecyclerView recyclerView) {
+    /**
+     * Initialization of recyclerview
+     *
+     * @param recyclerView - object to init
+     */
+    private void initRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemAnimator(new SlideInLeftAnimator());
         recyclerView.setAdapter(mModel.getAdapter());

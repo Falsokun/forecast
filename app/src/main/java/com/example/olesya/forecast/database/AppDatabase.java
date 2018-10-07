@@ -7,5 +7,11 @@ import com.example.olesya.forecast.pojo.WeatherInfo;
 
 @Database(entities = {WeatherInfo.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
+
+    /**
+     * Get database dao
+     *
+     * @return database dao
+     */
     public abstract WeatherInfoDao weatherDao();
 }

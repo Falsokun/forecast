@@ -4,7 +4,6 @@
     <string name="week">Week</string>
     <string name="today">Today</string>
     <string name="refresh">Refresh</string>
-    <string name="saveData">Save data</string>
     <string name="si_format">SI format</string>
     <string name="real_feel">Real feel</string>
     <string name="wind">Wind</string>
@@ -12,7 +11,7 @@
     <string name="err_no_internet">No refreshing available: missing internet connection</string>
 
     <string-array name="arr_cities">
-        <item>Rostov on Don</item>
+        <item>Rostov-on-Don</item>
         <item>Moscow</item>
         <item>London</item>
         <item>New York</item>

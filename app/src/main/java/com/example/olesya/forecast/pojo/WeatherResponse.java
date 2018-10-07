@@ -1,11 +1,25 @@
 package com.example.olesya.forecast.pojo;
 
+/**
+ * Response object from api
+ */
 public class WeatherResponse {
 
+    /**
+     * Current weather info
+     */
     private WeatherInfo currently;
 
+    /**
+     * Information about weather in future time
+     * Data is presented by hours
+     */
     private ListInfo hourly;
 
+    /**
+     * Information about weather in future time
+     * Data is presented by days
+     */
     private ListInfo daily;
 
     public WeatherResponse(WeatherInfo currently, ListInfo hourly, ListInfo daily) {

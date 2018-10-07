@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Forecast</string>
+    <string name="day">День</string>
+    <string name="week">На неделю</string>
+    <string name="today">Сегодня</string>
+    <string name="refresh">Обновить</string>
+    <string name="si_format">Формат СИ</string>
+    <string name="real_feel">Ощущается</string>
+    <string name="wind">Ветер</string>
+    <string name="humidity">Влажность</string>
+    <string name="err_no_internet">Невозможно обновить: необходимо интернет соединение</string>
+
+    <string-array name="arr_cities">
+        <item>Ростов-на-Дону</item>
+        <item>Москва</item>
+        <item>Лондон</item>
+        <item>Нью-Йорк</item>
+        <item>Токио</item>
+        <item>Сеул</item>
+    </string-array>
+</resources>

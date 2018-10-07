@@ -10,5 +10,6 @@ import retrofit2.http.Query;
 public interface DarkSkyService {
     @GET("{location}")
     Call<WeatherResponse> weatherOnLocationInfo(@Path("location") String location,
-                                                @Query("units") String units);
+                                                @Query("units") String units,
+                                                @Query("lang") String lang);
 }

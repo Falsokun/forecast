@@ -18,6 +18,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    /**
+     * Adding data to adapter
+     *
+     * @param fragment - element to add
+     */
     public void addItem(Fragment fragment) {
         fragmentList.add(fragment);
     }

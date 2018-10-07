@@ -3,7 +3,14 @@ package com.example.olesya.forecast.pojo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class to parse data from api via gson
+ */
 public class ListInfo implements Serializable {
+
+    /**
+     *
+     */
     private String summary;
 
     private String icon;

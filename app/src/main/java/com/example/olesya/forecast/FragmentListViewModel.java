@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.olesya.forecast.adapter.ItemsAdapter;
 import com.example.olesya.forecast.adapter.WeekAdapter;
 import com.example.olesya.forecast.pojo.WeatherInfo;
+import com.example.olesya.forecast.view.FragmentWeatherList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,11 @@ public class FragmentListViewModel extends ViewModel {
         return mAdapter;
     }
 
-    public boolean isWeatherToday() {
-        return isWeatherToday;
+    public String getTitle(Context context) {
+        if (isWeatherToday) {
+            return context.getString(R.string.today);
+        } else {
+            return context.getString(R.string.week);
+        }
     }
-
 }

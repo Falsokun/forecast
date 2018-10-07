@@ -19,24 +19,25 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginStart="24dp"
             android:id="@+id/icon_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/city_sp"
+            android:layout_marginStart="24dp"
             android:drawableEnd="@drawable/ic_sun"
             android:drawablePadding="@dimen/half_std"
             android:drawableTint="@android:color/white"
+            android:minEms="4"
             android:text="@{info.stringTemperature}"
             android:textColor="@android:color/white" />
 
         <RelativeLayout
-            android:layout_marginEnd="@dimen/std"
             android:id="@+id/humidity_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/city_sp">
+            android:layout_below="@id/city_sp"
+            android:layout_marginEnd="@dimen/std">
 
             <ImageView
                 android:id="@+id/ic_humidity"
@@ -51,6 +52,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_toEndOf="@id/ic_humidity"
                 android:gravity="center_vertical"
+                android:minEms="3"
                 android:text="@{info.stringHumidity}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
@@ -85,6 +87,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_toEndOf="@id/ic_wind"
                 android:gravity="center_vertical"
+                android:minEms="4"
                 android:text="@{info.stringWindSpeed}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
@@ -95,6 +98,41 @@
                 android:layout_below="@id/ic_wind"
                 android:layout_centerHorizontal="true"
                 android:text="@string/wind"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/small_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/real_feel_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/city_sp"
+            android:layout_toStartOf="@id/wind_container">
+
+            <ImageView
+                android:id="@+id/ic_real_feel"
+                style="@style/SmallIconStyle"
+                android:background="@drawable/ic_real_feel"
+                android:backgroundTint="@android:color/white" />
+
+            <TextView
+                android:id="@+id/real_feel_val"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/sm_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@id/ic_real_feel"
+                android:gravity="center_vertical"
+                android:minEms="4"
+                android:text="@{info.stringRealFeel}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ic_real_feel"
+                android:layout_centerHorizontal="true"
+                android:text="@string/real_feel"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
         </RelativeLayout>

@@ -24,15 +24,21 @@ public class WeatherInfo implements Serializable {
     @SerializedName("time")
     private long timeInMillis;
 
+    /**
+     * One of the {@link Utils.DARKSKY_CONST} variables which describes weather
+     */
     private String icon;
 
-    /**
-     * In Fahrenheits
-     */
     private float temperature;
 
+    /**
+     * Max temperature per period
+     */
     private float temperatureHigh;
 
+    /**
+     * Min temperature per period
+     */
     private float temperatureLow;
 
     @SerializedName("apparentTemperature")
@@ -42,6 +48,9 @@ public class WeatherInfo implements Serializable {
 
     private double windSpeed;
 
+    /**
+     * Brief summary of the weather status
+     */
     private String summary;
 
     public WeatherInfo(int type, long timeInMillis, String icon, float temperature,
@@ -105,31 +114,54 @@ public class WeatherInfo implements Serializable {
     }
     //endregion
 
+    /**
+     * String {@link #temperature} in an ordinary standard
+     *
+     * @return formatted temperature
+     */
     public String getStringTemperature() {
         return getSign((int) temperature)
                 + String.valueOf((int) temperature)
                 + (char) 0x00B0;
     }
 
-    public String getStringTime() {
-        return new Date(timeInMillis).toString();
+    /**
+     * String {@link #realFeel} temperature in an ordinary standard
+     *
+     * @return formatted temperature
+     */
+    public String getStringRealFeel() {
+        return getSign((int) realFeel)
+                + String.valueOf((int) realFeel)
+                + (char) 0x00B0;
     }
 
-    public String getStringDayTime() {
-        String pattern = "EEEE, dd HH:00";
-        return new SimpleDateFormat(pattern, Locale.getDefault()).format(new Date(timeInMillis * 1000));
-    }
-
+    /**
+     * Transform unix value {@link WeatherInfo#timeInMillis} and gets the date
+     *
+     * @return date
+     */
     public String getDate() {
         String pattern = "dd.MM.yy";
         return new SimpleDateFormat(pattern, Locale.getDefault()).format(new Date(timeInMillis * 1000));
     }
 
+    /**
+     * Transform unix value {@link WeatherInfo#timeInMillis} and gets the time
+     *
+     * @return time due to pattern hh:00
+     */
     public String getHour() {
         String pattern = "HH:00";
         return new SimpleDateFormat(pattern, Locale.getDefault()).format(new Date(timeInMillis * 1000));
     }
 
+    /**
+     * Transform unix value {@link WeatherInfo#timeInMillis} and gets day of the week
+     *
+     * @param context - context variable
+     * @return day of the week
+     */
     public String getDayOfWeek(Context context) {
         String patternDayOfWeek = "EEEE";
         String todayDOW = new SimpleDateFormat(patternDayOfWeek, Locale.getDefault())
@@ -160,32 +192,43 @@ public class WeatherInfo implements Serializable {
                 + (char) 0x00B0;
     }
 
-    private String getSign(int temperature) {
-        if (temperature > 0)
+    /**
+     * Sign of the value, if <= 0, then sign will be presented by number automatically
+     *
+     * @param val - value
+     * @return sign
+     */
+    private String getSign(int val) {
+        if (val > 0)
             return "+";
 
-        return temperature == 0 ? "" : "-";
+        return "";
     }
 
+    /**
+     * Get drawable which corresponds to one of the {@link Utils.DARKSKY_CONST}
+     *
+     * @return drawable id
+     */
     public int getDrawable() {
         switch (icon) {
-            case Utils.DARKSKY_ICON_CONST.CLEAR_NIGHT:
+            case Utils.DARKSKY_CONST.CLEAR_NIGHT:
                 return R.drawable.ic_moon;
-            case Utils.DARKSKY_ICON_CONST.RAIN:
+            case Utils.DARKSKY_CONST.RAIN:
                 return R.drawable.ic_rain;
-            case Utils.DARKSKY_ICON_CONST.SNOW:
+            case Utils.DARKSKY_CONST.SNOW:
                 return R.drawable.ic_snow;
-            case Utils.DARKSKY_ICON_CONST.SLEET:
+            case Utils.DARKSKY_CONST.SLEET:
                 return R.drawable.ic_sleet;
-            case Utils.DARKSKY_ICON_CONST.WIND:
+            case Utils.DARKSKY_CONST.WIND:
                 return R.drawable.ic_wind;
-            case Utils.DARKSKY_ICON_CONST.FOG:
+            case Utils.DARKSKY_CONST.FOG:
                 return R.drawable.ic_mist;
-            case Utils.DARKSKY_ICON_CONST.CLOUDY:
+            case Utils.DARKSKY_CONST.CLOUDY:
                 return R.drawable.ic_cloud;
-            case Utils.DARKSKY_ICON_CONST.PARTLY_CLOUDY_DAY:
+            case Utils.DARKSKY_CONST.PARTLY_CLOUDY_DAY:
                 return R.drawable.ic_partly_cloud_day;
-            case Utils.DARKSKY_ICON_CONST.PARTLY_CLOUDY_NIGHT:
+            case Utils.DARKSKY_CONST.PARTLY_CLOUDY_NIGHT:
                 return R.drawable.ic_partly_cloud_night;
             default:
                 return R.drawable.ic_sun;

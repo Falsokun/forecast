@@ -15,7 +15,10 @@ public class Utils {
         public static final int CURRENT = 2;
     }
 
-    public class DARKSKY_ICON_CONST {
+    public static final String[] CITIES = {"Rostov-on-Don", "Moscow", "London",
+            "New York", "Tokyo", "Seoul"};
+
+    public class DARKSKY_CONST {
         public static final String CLEAR_NIGHT = "clear-night";
         public static final String RAIN = "rain";
         public static final String SNOW = "snow";

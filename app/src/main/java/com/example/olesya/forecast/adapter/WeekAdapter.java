@@ -14,7 +14,9 @@ import java.util.List;
 
 public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.MyHolder> implements AdapterEvents {
 
-    private static final int HOURS_LIMIT = 24;
+    /**
+     *  Storing adapter data
+     */
     private List<WeatherInfo> mData;
 
     public WeekAdapter(List<WeatherInfo> mData) {
@@ -32,12 +34,13 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.MyHolder> impl
         WeatherInfo info = mData.get(position);
         holder.mBinding.setInfo(info);
         holder.mBinding.setContext(holder.mBinding.getRoot().getContext());
+        holder.mBinding.dow.setText(info.getDayOfWeek(holder.mBinding.getContext()));
         Glide.with(holder.itemView.getContext()).load(info.getDrawable()).into(holder.mBinding.icon);
     }
 
     @Override
     public int getItemCount() {
-        return mData.size() > HOURS_LIMIT ? HOURS_LIMIT : mData.size();
+        return mData.size();
     }
 
     @Override
@@ -49,6 +52,9 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.MyHolder> impl
 
     public class MyHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * Holder binding
+         */
         ItemWeekInfoBinding mBinding;
 
         public MyHolder(ItemWeekInfoBinding mBinding) {
