@@ -6,24 +6,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@color/colorPrimary">
+            android:layout_height="140dp"
+            android:background="@drawable/city">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.7"
+                android:background="@color/colorPrimary" />
 
             <include
+                android:layout_marginTop="40dp"
                 android:id="@+id/current_weather"
                 layout="@layout/layout_current_weather"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </android.support.v7.widget.Toolbar>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </FrameLayout>
+
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/appbar">
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"

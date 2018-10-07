@@ -42,4 +42,5 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
+    compile 'com.jaredrummler:material-spinner:1.2.5'
 }

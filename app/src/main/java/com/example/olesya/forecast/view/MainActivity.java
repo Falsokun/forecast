@@ -17,13 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.olesya.forecast.App;
-import com.example.olesya.forecast.AppDatabase;
 import com.example.olesya.forecast.DarkSkyService;
 import com.example.olesya.forecast.R;
 import com.example.olesya.forecast.Utils;
@@ -31,6 +28,7 @@ import com.example.olesya.forecast.adapter.ViewPagerAdapter;
 import com.example.olesya.forecast.databinding.ActivityMainBinding;
 import com.example.olesya.forecast.pojo.WeatherInfo;
 import com.example.olesya.forecast.pojo.WeatherResponse;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         initRefreshListener();
         initSpinnerAdapter();
         setSupportActionBar(mBinding.toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getData();
         initObserver();
     }
@@ -75,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.item_spinner);
         mBinding.currentWeather.citySp.setAdapter(adapter);
         String curLocation = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE).getString(Utils.PREF_LOCATION, "");
-        mBinding.currentWeather.citySp.setSelection(getPositionByLocation(curLocation));
-        mBinding.currentWeather.citySp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mBinding.currentWeather.citySp.setSelectedIndex(getPositionByLocation(curLocation));
+        mBinding.currentWeather.citySp.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 //change location
                 getSharedPreferences(getPackageName(), Context.MODE_PRIVATE)
                         .edit()
@@ -86,11 +85,6 @@ public class MainActivity extends AppCompatActivity {
                         .apply();
                 refreshData();
                 mBinding.refresh.setRefreshing(true);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
@@ -258,14 +252,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getLocation() {
-        String locationName = (String) mBinding.currentWeather.citySp.getSelectedItem();
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            List<Address> res = geocoder.getFromLocationName(locationName, 1);
-            return res.get(0).getLatitude() + "," + res.get(0).getLatitude();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        String locationName = (String) mBinding.currentWeather.citySp.getSelectedIndex();
+//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+//        try {
+//            List<Address> res = geocoder.getFromLocationName(locationName, 1);
+//            return res.get(0).getLatitude() + "," + res.get(0).getLatitude();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         return "39.701505,47.2357137";
     }
