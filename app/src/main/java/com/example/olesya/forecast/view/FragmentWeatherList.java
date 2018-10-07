@@ -39,13 +39,11 @@ public class FragmentWeatherList extends Fragment {
 
         mModel = ViewModelProviders.of(this).get(FragmentListViewModel.class);
         mModel.init(getContext(), isWeatherToday);
-        int type = isWeatherToday ? 0 : 1;
+        int type = isWeatherToday ? Utils.WEATHER_TYPES.DAY : Utils.WEATHER_TYPES.WEEK;
         mModel.getCurrentData(getContext(), type).observe(this, new Observer<List<WeatherInfo>>() {
             @Override
             public void onChanged(@Nullable List<WeatherInfo> weatherInfos) {
-//                if (weatherInfos.size() != 0 ) {
-                    ((AdapterEvents) mModel.getAdapter()).setItems(weatherInfos);
-//                }
+                ((AdapterEvents) mModel.getAdapter()).setItems(weatherInfos);
             }
         });
     }
@@ -55,9 +53,9 @@ public class FragmentWeatherList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather_list, container, false);
         if (mModel.isWeatherToday()) {
-            mBinding.title.setText("today");
+            mBinding.title.setText(getString(R.string.today));
         } else {
-            mBinding.title.setText("7 days");
+            mBinding.title.setText(R.string.week);
         }
 
         initAdapter(mBinding.weatherlistRv);

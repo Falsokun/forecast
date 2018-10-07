@@ -1,4 +1,4 @@
-package com.example.olesya.forecast;
+package com.example.olesya.forecast.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -14,9 +14,6 @@ import java.util.List;
 public interface WeatherInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertInfo(List<WeatherInfo> info);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertInfo(WeatherInfo info);
 
     @Query("SELECT * FROM weatherinfo WHERE type = :type")
     LiveData<List<WeatherInfo>> getInfo(int type);

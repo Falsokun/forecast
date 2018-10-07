@@ -60,7 +60,6 @@ public class WeatherInfo implements Serializable {
     }
 
     //region getters and setters
-
     public long getTimeInMillis() {
         return timeInMillis;
     }
@@ -107,7 +106,9 @@ public class WeatherInfo implements Serializable {
     //endregion
 
     public String getStringTemperature() {
-        return String.valueOf((int)temperature) + (char) 0x00B0;
+        return getSign((int) temperature)
+                + String.valueOf((int) temperature)
+                + (char) 0x00B0;
     }
 
     public String getStringTime() {
@@ -151,7 +152,19 @@ public class WeatherInfo implements Serializable {
     }
 
     public String getStringMaxMinTemperature() {
-        return String.valueOf((int) temperatureHigh) + (char) 0x00B0 + "\n" + String.valueOf((int) temperatureLow) + (char) 0x00B0;
+        return getSign((int) temperatureHigh)
+                + String.valueOf((int) temperatureHigh)
+                + (char) 0x00B0 + "\n"
+                + getSign((int) temperatureLow)
+                + String.valueOf((int) temperatureLow)
+                + (char) 0x00B0;
+    }
+
+    private String getSign(int temperature) {
+        if (temperature > 0)
+            return "+";
+
+        return temperature == 0 ? "" : "-";
     }
 
     public int getDrawable() {

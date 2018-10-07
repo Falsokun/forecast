@@ -52,12 +52,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyHolder> im
         }
     }
 
-    private boolean needUpdate(List<WeatherInfo> weatherInfo) {
-        List<WeatherInfo> common = new ArrayList<>(weatherInfo);
-        common.retainAll(mData);
-        return common.size() != 0;
-    }
-
     public class MyHolder extends RecyclerView.ViewHolder {
 
         ItemWeatherInfoBinding mBinding;

@@ -1,4 +1,4 @@
-package com.example.olesya.forecast;
+package com.example.olesya.forecast.database;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
