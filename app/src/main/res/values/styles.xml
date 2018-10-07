@@ -16,4 +16,27 @@
         <item name="ms_background_color">@android:color/transparent</item>
     </style>
 
+    <style name="IconStyle">
+        <item name="android:scaleX">0.5</item>
+        <item name="android:scaleY">0.5</item>
+        <item name="android:tint">@android:color/black</item>
+        <item name="android:backgroundTint">@android:color/black</item>
+        <item name="android:layout_height">@dimen/icon_size</item>
+        <item name="android:layout_width">@dimen/icon_size</item>
+    </style>
+
+    <style name="CardViewStyle">
+        <item name="android:layout_margin">@dimen/padding_sm</item>
+        <item name="contentPadding">@dimen/std</item>
+        <item name="cardCornerRadius">@dimen/corners_size</item>
+        <item name="cardElevation">@dimen/elevation_size</item>
+        <item name="cardBackgroundColor">@android:color/white</item>
+    </style>
+
+    <style name="SmallIconStyle" parent="IconStyle">
+        <item name="android:layout_height">@dimen/sm_icon_size</item>
+        <item name="android:layout_width">@dimen/sm_icon_size</item>
+    </style>
+
+    <dimen name="icon_size">50dp</dimen>
 </resources>

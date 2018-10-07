@@ -14,10 +14,10 @@
 
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/city_sp"
-            android:layout_width="wrap_content"
-            android:padding="@dimen/padding_sm"
             style="@style/MaterialSpinner"
-            android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_sm" />
 
         <TextView
             android:id="@+id/icon_weather"
@@ -26,39 +26,34 @@
             android:layout_below="@id/city_sp"
             android:drawableEnd="@drawable/ic_sun"
             android:drawablePadding="10dp"
-            android:textColor="@android:color/white"
             android:drawableTint="@android:color/white"
-            android:hint="+18*"
             android:padding="@dimen/std"
-            android:text="@{info.stringTemperature}" />
+            android:text="@{info.stringTemperature}"
+            android:textColor="@android:color/white" />
 
         <RelativeLayout
-            android:paddingRight="@dimen/padding_sm"
             android:id="@+id/humidity_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/city_sp">
+            android:layout_below="@id/city_sp"
+            android:paddingEnd="@dimen/padding_sm">
 
             <ImageView
                 android:id="@+id/ic_humidity"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                style="@style/SmallIconStyle"
                 android:background="@drawable/ic_mist"
-                android:scaleX="0.4"
-                android:scaleY="0.5"
                 android:backgroundTint="@android:color/white" />
 
             <TextView
                 android:id="@+id/humidity_val"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/sm_icon_size"
                 android:layout_gravity="center_vertical"
-                android:layout_toRightOf="@id/ic_humidity"
+                android:layout_toEndOf="@id/ic_humidity"
                 android:gravity="center_vertical"
-                android:hint="18*"
-                android:textColor="@android:color/white"
                 android:text="@{info.stringHumidity}"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
 
             <TextView
@@ -66,9 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ic_humidity"
                 android:layout_centerHorizontal="true"
-                android:hint="wind"
-                android:textColor="@android:color/white"
                 android:text="@string/humidity"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
         </RelativeLayout>
 
@@ -76,38 +70,33 @@
             android:id="@+id/wind_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/humidity_container"
-            android:layout_below="@id/city_sp">
+            android:layout_below="@id/city_sp"
+            android:layout_toStartOf="@id/humidity_container">
 
             <ImageView
                 android:id="@+id/ic_wind"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                style="@style/SmallIconStyle"
                 android:background="@drawable/ic_wind"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
                 android:backgroundTint="@android:color/white" />
 
             <TextView
                 android:id="@+id/wind_val"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:textColor="@android:color/white"
+                android:layout_height="@dimen/sm_icon_size"
                 android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@id/ic_wind"
                 android:gravity="center_vertical"
-                android:layout_toRightOf="@id/ic_wind"
-                android:hint="18*"
                 android:text="@{info.stringWindSpeed}"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ic_wind"
-                android:textColor="@android:color/white"
                 android:layout_centerHorizontal="true"
-                android:hint="wind"
                 android:text="@string/wind"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/small_text_size" />
         </RelativeLayout>
 

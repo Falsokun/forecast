@@ -4,4 +4,9 @@
     <dimen name="small_text_size">8sp</dimen>
     <dimen name="title_size">16sp</dimen>
     <dimen name="padding_sm">4dp</dimen>
+    <dimen name="half_std">8dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="elevation_size">5dp</dimen>
+    <dimen name="corners_size">5dp</dimen>
+    <dimen name="sm_icon_size">30dp</dimen>
 </resources>

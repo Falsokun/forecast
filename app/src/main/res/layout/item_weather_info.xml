@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -14,13 +13,9 @@
     </data>
 
     <android.support.v7.widget.CardView
-        contentPadding="10dp"
+        style="@style/CardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/container"
@@ -31,9 +26,6 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="XX:XX"
-                android:paddingLeft="@dimen/std"
-                android:paddingTop="8dp"
                 android:text="@{info.hour}"
                 android:textSize="@dimen/title_size" />
 
@@ -42,32 +34,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/time"
-                android:hint="date"
-                android:paddingLeft="24dp"
-                android:textSize="@dimen/small_text_size"
-                android:text="@{info.date}" />
+                android:paddingStart="@dimen/half_std"
+                android:text="@{info.date}"
+                android:textSize="@dimen/small_text_size" />
 
             <TextView
                 android:id="@+id/summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dow"
-                android:hint="summary"
-                android:paddingBottom="@dimen/padding_sm"
-                android:paddingLeft="@dimen/std"
-                android:paddingRight="@dimen/std"
                 android:paddingTop="@dimen/padding_sm"
-                android:text="@{info.summary}"/>
+                android:text="@{info.summary}" />
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                style="@style/IconStyle"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/temperature"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:tint="@android:color/black" />
+                android:layout_toStartOf="@id/temperature" />
 
             <TextView
                 android:id="@+id/temperature"
@@ -75,8 +58,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:hint="t*"
-                android:padding="@dimen/std"
                 android:text="@{info.stringTemperature}" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

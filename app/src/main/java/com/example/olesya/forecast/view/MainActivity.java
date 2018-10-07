@@ -30,10 +30,8 @@ import com.example.olesya.forecast.pojo.WeatherInfo;
 import com.example.olesya.forecast.pojo.WeatherResponse;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     private void initSpinnerAdapter() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.arr_cities));
-        adapter.setDropDownViewResource(R.layout.item_spinner);
         mBinding.currentWeather.citySp.setAdapter(adapter);
         String curLocation = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE).getString(Utils.PREF_LOCATION, "");
         mBinding.currentWeather.citySp.setSelectedIndex(getPositionByLocation(curLocation));

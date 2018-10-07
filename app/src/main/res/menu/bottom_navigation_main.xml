@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<item
-    android:id="@+id/menu_day"
-    android:title=""
-    app:showAsAction="always"
-    android:icon="@drawable/rounded_rectangle"/>
+    <item
+        android:id="@+id/menu_day"
+        android:icon="@drawable/rounded_rectangle"
+        android:title=""
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_week"
-        app:showAsAction="always"
+        android:icon="@drawable/rounded_rectangle"
         android:title=""
-        android:icon="@drawable/rounded_rectangle"/>
+        app:showAsAction="ifRoom" />
 </menu>
